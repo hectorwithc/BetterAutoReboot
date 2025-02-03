@@ -1,5 +1,6 @@
 package dev.thrivingstudios.betterAutoReboot;
 
+import dev.thrivingstudios.betterAutoReboot.enums.RebootTypeEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,7 +16,7 @@ public class RebootTimer {
         this.pluginConfig = pluginConfig;
     }
 
-    public void startTimer(int durationSeconds) {
+    public void startTimer(int durationSeconds, RebootTypeEnum rebootType, String rebootReason) {
         new BukkitRunnable() {
             int count = durationSeconds;
 

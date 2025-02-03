@@ -1,5 +1,7 @@
 package dev.thrivingstudios.betterAutoReboot;
 
+import dev.thrivingstudios.betterAutoReboot.commands.RebootCommand;
+import dev.thrivingstudios.betterAutoReboot.enums.RebootTypeEnum;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class BetterAutoReboot extends JavaPlugin {
@@ -19,9 +21,11 @@ public final class BetterAutoReboot extends JavaPlugin {
         pluginConfig = new PluginConfig(this);
         pluginConfig.loadConfig();
 
-        // Start reboot timer
+        // Load reboot timer
         rebootTimer = new RebootTimer(this, pluginConfig);
-        rebootTimer.startTimer(100);
+
+        // Register commands
+        getCommand("reboot").setExecutor(new RebootCommand(rebootTimer));
 
         getLogger().info("Plugin has been enabled!");
     }

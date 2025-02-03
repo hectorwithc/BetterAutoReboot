@@ -2,3 +2,11 @@ name: BetterAutoReboot
 version: '1.0-SNAPSHOT'
 main: dev.thrivingstudios.betterAutoReboot.BetterAutoReboot
 api-version: '1.21'
+commands:
+  reboot:
+    description: Main server reboot command.
+    permission-message: &cYou don't have permission to use this command.
+    permission: betterautoreboot.admin
+permissions:
+  betterautoreboot.alerts:
+    description: Server admins reboot alerts permission.
