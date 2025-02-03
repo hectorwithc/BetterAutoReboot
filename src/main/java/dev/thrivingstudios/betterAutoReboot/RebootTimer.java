@@ -25,10 +25,14 @@ public class RebootTimer {
                 if (pluginConfig.ALERT_MESSAGE_INTERVALS.contains(Integer.toString(count))) {
                     // Send reboot alert message
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        player.sendTitle("§c§lReboot!", "§7Server is rebooting.");
+                        player.sendTitle("§c§lReboot!", String.format("§7Rebooting in §f%s§7.", DateUtils.formatCountSimple(count)));
 
                         player.sendMessage("");
-                        player.sendMessage(String.format("§c[Reboot] §7Server is rebooting in §f%s§7!", DateUtils.formatCountFull(count)));
+                        if (rebootReason != null) {
+                            player.sendMessage(String.format("§c[Reboot] §7The server is rebooting in §f%s §7for §f%s§7.", DateUtils.formatCountFull(count), rebootReason));
+                        } else {
+                            player.sendMessage(String.format("§c[Reboot] §7Server is rebooting in §f%s§7.", DateUtils.formatCountFull(count)));
+                        }
                         player.sendMessage("");
                     }
                 }
@@ -37,6 +41,16 @@ public class RebootTimer {
                 count--;
 
                 if (count == 0) {
+                    // Reboot the server
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        player.sendMessage("");
+                        player.sendMessage("§c[Reboot] §7Server is rebooting.");
+                        player.sendMessage("");
+                    }
+
+                    System.out.println("/restart"); // Placeholder
+
+                    // Stop the bukkit runnable
                     cancel();
                 }
             }

@@ -7,7 +7,7 @@ public class AlertUtils {
     public static void alertServerAdmins(String message) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.hasPermission("betterautoreboot.alerts")) {
-                player.sendMessage(String.format("§c[Reboot] §8(Admin) §7%s", message));
+                player.sendMessage(String.format("§c[Reboot] §4(Admin) §7%s", message));
             }
         }
     }

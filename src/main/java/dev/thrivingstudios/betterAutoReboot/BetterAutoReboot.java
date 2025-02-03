@@ -1,6 +1,7 @@
 package dev.thrivingstudios.betterAutoReboot;
 
 import dev.thrivingstudios.betterAutoReboot.commands.RebootCommand;
+import dev.thrivingstudios.betterAutoReboot.commands.RebootTabCompleter;
 import dev.thrivingstudios.betterAutoReboot.enums.RebootTypeEnum;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,6 +27,7 @@ public final class BetterAutoReboot extends JavaPlugin {
 
         // Register commands
         getCommand("reboot").setExecutor(new RebootCommand(rebootTimer));
+        getCommand("reboot").setTabCompleter(new RebootTabCompleter());
 
         getLogger().info("Plugin has been enabled!");
     }
