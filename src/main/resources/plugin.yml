@@ -1,0 +1,4 @@
+name: BetterAutoReboot
+version: '1.0-SNAPSHOT'
+main: dev.thrivingstudios.betterAutoReboot.BetterAutoReboot
+api-version: '1.21'
