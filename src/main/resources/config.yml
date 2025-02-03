@@ -1,0 +1,25 @@
+# BetterAutoRestart (Version: 1.0-SNAPSHOT)
+
+# ------------------------
+# PLUGIN SETTINGS
+# ------------------------
+
+# Alert message interval in seconds.
+alert-message-intervals:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 30
+  - 60
+  - 90
+  - 120 # 2m
+  - 180 # 3m
+  - 300 # 5m
+  - 600 # 10m
