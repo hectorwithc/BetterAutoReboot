@@ -17,6 +17,7 @@ public class RebootTabCompleter implements TabCompleter {
 
         if (args.length == 1) {
             results.add("now");
+            results.add("stop");
             results.add("force");
             results.add("help");
             results.add("version");

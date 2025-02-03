@@ -5,19 +5,26 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 public class RebootTimer {
 
     private final BetterAutoReboot betterAutoReboot;
     private final PluginConfig pluginConfig;
 
+    private BukkitTask timerTask;
+
     public RebootTimer(BetterAutoReboot betterAutoReboot, PluginConfig pluginConfig) {
         this.betterAutoReboot = betterAutoReboot;
         this.pluginConfig = pluginConfig;
     }
 
-    public void startTimer(int durationSeconds, RebootTypeEnum rebootType, String rebootReason) {
-        new BukkitRunnable() {
+    public boolean startTimer(int durationSeconds, RebootTypeEnum rebootType, String rebootReason) {
+        if (timerTask != null) {
+            return false;
+        }
+
+        timerTask = new BukkitRunnable() {
             int count = durationSeconds;
 
             @Override
@@ -55,5 +62,27 @@ public class RebootTimer {
                 }
             }
         }.runTaskTimer(JavaPlugin.getPlugin(BetterAutoReboot.class), 0, 20L);
+
+        return true;
+    }
+
+    public boolean stopTimer() {
+        if (timerTask != null) {
+            // Stop the server reboot timer
+            timerTask.cancel();
+            timerTask = null;
+
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.sendTitle("§c§lReboot!", "§7Reboot §fstopped§7.");
+
+                player.sendMessage("");
+                player.sendMessage("§c[Reboot] §7The server reboot has been §fstopped §7by an administrator.");
+                player.sendMessage("");
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
 }

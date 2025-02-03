@@ -56,10 +56,17 @@ public class RebootCommand implements CommandExecutor {
                 rebootReason = stringBuilder.toString().trim();
             }
 
+            boolean result = false;
             if (subCommand.equals("now")) {
-                rebootTimer.startTimer(rebootCountdownDuration, RebootTypeEnum.NOW, rebootReason);
+                result = rebootTimer.startTimer(rebootCountdownDuration, RebootTypeEnum.NOW, rebootReason);
             } else if (subCommand.equals("force")) {
-                rebootTimer.startTimer(rebootCountdownDuration, RebootTypeEnum.FORCE, rebootReason);
+                result = rebootTimer.startTimer(rebootCountdownDuration, RebootTypeEnum.FORCE, rebootReason);
+            }
+
+            if (result == false) {
+                sender.sendMessage("§cThere is already a scheduled server reboot. (Use: /reboot stop)");
+
+                return true;
             }
 
             if (rebootReason != null) {
@@ -90,6 +97,16 @@ public class RebootCommand implements CommandExecutor {
                         player.sendMessage("");
                     }
                 }
+            }
+
+            return true;
+        } else if (subCommand.equals("stop")) {
+            boolean result = rebootTimer.stopTimer();
+
+            if (result == true) {
+                AlertUtils.alertServerAdmins(String.format("§f%s §7stopped the scheduled server reboot.", sender.getName()));
+            } else {
+                sender.sendMessage("§cNo reboot scheduled reboot.");
             }
 
             return true;
